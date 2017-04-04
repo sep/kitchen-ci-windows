@@ -1,6 +1,8 @@
 ---
 driver:
   name: vagrant
+  synced_folders:
+    - ["c:/Installers", "c:/Installers"]
 
 provisioner:
   name: chef_zero
@@ -8,13 +10,19 @@ provisioner:
   # For example:
   #   always_update_cookbooks: <%= !ENV['CI'] %>
   always_update_cookbooks: true
-
+  
 verifier:
   name: inspec
 
+transport:
+  name: winrm
+
 platforms:
-  - name: ubuntu-16.04
-  - name: centos-7.2
+  - name: Windows-2016
+    driver:
+      box: win2016
+    os_type: windows
+    shell_type: powershell
 
 suites:
   - name: default

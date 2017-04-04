@@ -1,18 +1,20 @@
-# # encoding: utf-8
+#
+# Cookbook:: kitchen-ci-windows
 
-# Inspec test for recipe kitchen-ci-windows::default
+packages_installed = ['vagrant',
+                      'Oracle VM VirtualBox 5.1.18',
+                      'Chef Development Kit v1.2.20']
 
-# The Inspec reference, with examples and extensive documentation, can be
-# found at http://inspec.io/docs/reference/resources/
-
-unless os.windows?
-  describe user('root') do
-    it { should exist }
-    skip 'This is an example test, replace with your own test.'
+packages_installed.each do |x|
+  describe package(x) do
+    it { should be_installed }
   end
 end
 
-describe port(80) do
-  it { should_not be_listening }
-  skip 'This is an example test, replace with your own test.'
+script = <<-EOH
+  vagrant -v
+EOH
+
+describe powershell(script) do
+  its('stdout') { should match 'Vagrant 1.9.2.*' }
 end
