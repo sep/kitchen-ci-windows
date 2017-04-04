@@ -3,7 +3,8 @@
 
 packages_installed = ['vagrant',
                       'Oracle VM VirtualBox 5.1.18',
-                      'Chef Development Kit v1.2.20']
+                      'Chef Development Kit v1.2.20',
+                      'Google Chrome']
 
 packages_installed.each do |x|
   describe package(x) do
@@ -17,4 +18,8 @@ EOH
 
 describe powershell(script) do
   its('stdout') { should match 'Vagrant 1.9.2.*' }
+end
+
+describe directory 'c:\\Jenkins' do
+  it { should exist }
 end

@@ -4,6 +4,8 @@
 default['kitchen-ci-windows']['packages']['vagrant']['version'] = '1.9.2'
 default['kitchen-ci-windows']['packages']['vagrant']['reboot'] = true
 default['kitchen-ci-windows']['packages']['virtualbox']['version'] = '5.1.18'
+# nil will install latest
+default['kitchen-ci-windows']['packages']['googlechrome']['version'] = nil
 
 # Java
 default['java']['windows']['url'] = 'file:///c:/Installers/jdk-8u51-windows-x64.exe'

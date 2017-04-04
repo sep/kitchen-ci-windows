@@ -1,10 +1,10 @@
 name 'kitchen-ci-windows'
-maintainer 'The Authors'
-maintainer_email 'you@example.com'
-license 'all_rights'
+maintainer 'Bob Nowadly'
+maintainer_email 'rmnowadly@sep.com'
+license 'Apache license 2.0'
 description 'Installs/Configures kitchen-ci-windows'
 long_description 'Installs/Configures kitchen-ci-windows'
-version '0.1.0'
+version '0.2.0'
 
 supports 'windows', '2016'
 

@@ -25,3 +25,7 @@ package 'chef_dk' do
   source node['kitchen-ci-windows']['chefdk']['url']
   checksum node['kitchen-ci-windows']['chefdk']['checksum']
 end
+
+directory 'c:\\jenkins' do
+  action :create
+end
