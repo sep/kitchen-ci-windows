@@ -29,3 +29,10 @@ end
 directory 'c:\\jenkins' do
   action :create
 end
+
+
+dsc_resource 'NET-Framework-Core' do
+  resource :windowsfeature
+  property :ensure, 'Present'
+  property :name, 'NET-Framework-Core'
+end
