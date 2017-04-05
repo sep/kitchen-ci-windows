@@ -42,10 +42,15 @@ windows_service 'jenkinsslave-c__jenkins' do
   action :start
 end
 
+chef_gem 'knife_cookbook_doc' do
+  action :install
+end
+
 node['kitchen-ci-windows']['vagrant-box'].each do |key, value|
   powershell_script "Adding #{key} Vagrant box" do
     code <<-EOH
-      vagrant box add #{value} --name #{value}
+      vagrant box list
+      vagrant box add #{value} --name #{value} --force
     EOH
     not_if 'vagrant box list | grep OC_Win10'
   end
