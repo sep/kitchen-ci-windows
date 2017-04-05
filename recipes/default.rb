@@ -71,13 +71,12 @@ end
 node['kitchen-ci-windows']['vagrant-box'].each do |key, value|
   powershell_script "Adding #{key} Vagrant box" do
     code <<-EOH
-      vagrant box list
-      vagrant box add #{value} --name #{value}
+      vagrant box add #{value} --name #{key}
 
       $src_dir = "C:\\Windows\\SysWOW64\\config\\systemprofile\\.vagrant.d"
       $dst_dir = "C:\\Windows\\System32\\config\\systemprofile\\.vagrant.d"
       robocopy   $src_dir $dst_dir /MIR
     EOH
-    not_if 'vagrant box list | grep OC_Win10'
+    not_if "Test-Path C:\\Windows\\System32\\config\\systemprofile\\.vagrant.d\\boxes\\C-VAGRANTCOLON-\\Vagrant-Boxes\\#{key}"
   end
 end
