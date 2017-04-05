@@ -40,6 +40,7 @@ dsc_resource 'NET-Framework-Core' do
   property :source, 'c:\\Installers'
 end
 
+# TODO: Add a check to see if this service is installed and only do this
 windows_service 'jenkinsslave-c__jenkins' do
   action :start
 end
@@ -59,11 +60,23 @@ powershell_script 'install vagrant winrm plugin' do
   EOH
 end
 
+directory 'C:\Windows\System32\config\systemprofile\.vagrant.d' do
+  action :create
+end
+
+directory 'C:\\Windows\\SysWOW64\\config\\systemprofile\\.vagrant.d' do
+  action :create
+end
+
 node['kitchen-ci-windows']['vagrant-box'].each do |key, value|
   powershell_script "Adding #{key} Vagrant box" do
     code <<-EOH
       vagrant box list
-      vagrant box add #{value} --name #{value} --force
+      vagrant box add #{value} --name #{value}
+
+      $src_dir = "C:\\Windows\\SysWOW64\\config\\systemprofile\\.vagrant.d"
+      $dst_dir = "C:\\Windows\\System32\\config\\systemprofile\\.vagrant.d"
+      robocopy   $src_dir $dst_dir /MIR
     EOH
     not_if 'vagrant box list | grep OC_Win10'
   end

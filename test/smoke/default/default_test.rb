@@ -1,4 +1,3 @@
-#
 # Cookbook:: kitchen-ci-windows
 
 packages_installed = ['vagrant',
