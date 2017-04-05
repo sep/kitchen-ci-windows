@@ -14,3 +14,6 @@ default['java']['windows']['checksum'] = 'F01FD26E6C0936A0F928385C61046D6F97EB32
 # Chefdk
 default['kitchen-ci-windows']['chefdk']['url'] = 'https://packages.chef.io/files/stable/chefdk/1.2.20/windows/2012r2/chefdk-1.2.20-1-x86.msi'
 default['kitchen-ci-windows']['chefdk']['checksum'] = '155c18d8e67ff1a77049c3399f2eada2d17553a6afaf6ad5266540a8f1acfc96'
+
+# vagrant boxes
+default['kitchen-ci-windows']['vagrant-box']['OC_Win10'] = 'C:\\Vagrant-Boxes\\OC_windows_10_virtualbox_0.3.0.box'

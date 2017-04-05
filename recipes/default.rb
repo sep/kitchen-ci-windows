@@ -30,9 +30,22 @@ directory 'c:\\jenkins' do
   action :create
 end
 
-
 dsc_resource 'NET-Framework-Core' do
   resource :windowsfeature
   property :ensure, 'Present'
   property :name, 'NET-Framework-Core'
+  property :source, 'c:\\Installers'
+end
+
+windows_service 'jenkinsslave-c__jenkins' do
+  action :start
+end
+
+node['kitchen-ci-windows']['vagrant-box'].each do |key, value|
+  powershell_script "Adding #{key} Vagrant box" do
+    code <<-EOH
+      vagrant box add #{value} --name #{value}
+    EOH
+    not_if 'vagrant box list | grep OC_Win10'
+  end
 end
