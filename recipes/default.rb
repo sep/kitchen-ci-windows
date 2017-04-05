@@ -42,8 +42,13 @@ windows_service 'jenkinsslave-c__jenkins' do
   action :start
 end
 
-chef_gem 'knife_cookbook_doc' do
+chef_gem 'knife-cookbook-doc' do
   action :install
+end
+
+cookbook_file 'C:\\Windows\\System32\\PsExec.exe' do
+  source 'PsExec.exe'
+  action :create_if_missing
 end
 
 node['kitchen-ci-windows']['vagrant-box'].each do |key, value|
