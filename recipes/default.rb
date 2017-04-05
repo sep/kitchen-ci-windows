@@ -71,7 +71,7 @@ end
 node['kitchen-ci-windows']['vagrant-box'].each do |key, value|
   powershell_script "Adding #{key} Vagrant box" do
     code <<-EOH
-      vagrant box add #{value} --name #{key}
+      vagrant box add #{value} --name #{key} --force
 
       $src_dir = "C:\\Windows\\SysWOW64\\config\\systemprofile\\.vagrant.d"
       $dst_dir = "C:\\Windows\\System32\\config\\systemprofile\\.vagrant.d"
