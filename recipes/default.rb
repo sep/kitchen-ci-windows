@@ -4,6 +4,8 @@
 #
 # Copyright:: 2017, The Authors, All Rights Reserved.
 
+# There is something wrong with the java cookbook. So I either need to update
+# the community one or update the wrapper to just install the pacakge
 include_recipe 'java-oracle::default'
 include_recipe 'chocolatey'
 include_recipe 'git-wrapper'
@@ -49,6 +51,12 @@ end
 cookbook_file 'C:\\Windows\\System32\\PsExec.exe' do
   source 'PsExec.exe'
   action :create_if_missing
+end
+
+powershell_script 'install vagrant winrm plugin' do
+  code <<-EOH
+    vagrant plugin install vagrant-winrm
+  EOH
 end
 
 node['kitchen-ci-windows']['vagrant-box'].each do |key, value|
