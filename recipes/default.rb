@@ -6,6 +6,7 @@
 
 include_recipe 'java-oracle::default'
 include_recipe 'chocolatey'
+include_recipe 'git-wrapper'
 
 reboot 'Restart Computer' do
   action :nothing
