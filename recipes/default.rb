@@ -40,9 +40,8 @@ dsc_resource 'NET-Framework-Core' do
   property :source, 'c:\\Installers'
 end
 
-windows_service 'jenkinsslave-c__jenkins' do
+windows_service node['kitchen-ci-windows']['jenkins-service'] do
   action :start
-  only_if node['kitchen-ci-windows']['start-jenkins']
 end
 
 chef_gem 'knife-cookbook-doc' do

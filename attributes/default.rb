@@ -21,5 +21,5 @@ default['kitchen-ci-windows']['vagrant-box']['OC_Win10'] = 'C:\\Vagrant-Boxes\\O
 default['kitchen-ci-windows']['vagrant-homex64'] = 'C:\\Windows\\SysWOW64\\config\\systemprofile\\.vagrant.d'
 default['kitchen-ci-windows']['vagrant-homex86'] = 'C:\\Windows\\System32\\config\\systemprofile\\.vagrant.d'
 
-default['kitchen-ci-windows']['start-jenkins'] = true
+default['kitchen-ci-windows']['start-jenkins'] = 'true'
 # rubocop:enable LineLength
