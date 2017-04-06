@@ -40,9 +40,9 @@ dsc_resource 'NET-Framework-Core' do
   property :source, 'c:\\Installers'
 end
 
-# TODO: Add a check to see if this service is installed and only do this
 windows_service 'jenkinsslave-c__jenkins' do
   action :start
+  only_if node['kitchen-ci-windows']['start-jenkins']
 end
 
 chef_gem 'knife-cookbook-doc' do
@@ -60,23 +60,30 @@ powershell_script 'install vagrant winrm plugin' do
   EOH
 end
 
-directory 'C:\Windows\System32\config\systemprofile\.vagrant.d' do
+vagrant_homex64 = node['kitchen-ci-windows']['vagrant-homex64']
+vagrant_homex86 = node['kitchen-ci-windows']['vagrant-homex86']
+
+dsc_resource 'VAGRANT_HOME' do
+  resource :environment
+  property :ensure, 'Present'
+  property :name, 'VAGRANT_HOME'
+  property :value, vagrant_homex86
+end
+
+directory vagrant_homex86 do
   action :create
 end
 
-directory 'C:\\Windows\\SysWOW64\\config\\systemprofile\\.vagrant.d' do
+directory vagrant_homex64 do
   action :create
 end
 
 node['kitchen-ci-windows']['vagrant-box'].each do |key, value|
   powershell_script "Adding #{key} Vagrant box" do
     code <<-EOH
-      vagrant box add #{value} --name #{key} --force
-
-      $src_dir = "C:\\Windows\\SysWOW64\\config\\systemprofile\\.vagrant.d"
-      $dst_dir = "C:\\Windows\\System32\\config\\systemprofile\\.vagrant.d"
-      robocopy   $src_dir $dst_dir /MIR
+      if (-not Test-Path '#{vagrant_homex86}\\boxes\\#{key}') {
+        vagrant box add #{value} --name #{key}
+      }
     EOH
-    not_if "Test-Path 'C:\\Windows\\System32\\config\\systemprofile\\.vagrant.d\\boxes\\#{key}"
   end
 end

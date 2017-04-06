@@ -18,4 +18,8 @@ default['kitchen-ci-windows']['chefdk']['checksum'] = '155c18d8e67ff1a77049c3399
 # vagrant boxes
 default['kitchen-ci-windows']['vagrant-box']['OC_Win10'] = 'C:\\Vagrant-Boxes\\OC_windows_10_virtualbox_0.3.0.box'
 
+default['kitchen-ci-windows']['vagrant-homex64'] = 'C:\\Windows\\SysWOW64\\config\\systemprofile\\.vagrant.d'
+default['kitchen-ci-windows']['vagrant-homex86'] = 'C:\\Windows\\System32\\config\\systemprofile\\.vagrant.d'
+
+default['kitchen-ci-windows']['start-jenkins'] = true
 # rubocop:enable LineLength
