@@ -77,6 +77,6 @@ node['kitchen-ci-windows']['vagrant-box'].each do |key, value|
       $dst_dir = "C:\\Windows\\System32\\config\\systemprofile\\.vagrant.d"
       robocopy   $src_dir $dst_dir /MIR
     EOH
-    not_if "Test-Path C:\\Windows\\System32\\config\\systemprofile\\.vagrant.d\\boxes\\C-VAGRANTCOLON-\\Vagrant-Boxes\\#{key}"
+    not_if "Test-Path 'C:\\Windows\\System32\\config\\systemprofile\\.vagrant.d\\boxes\\#{key}"
   end
 end
