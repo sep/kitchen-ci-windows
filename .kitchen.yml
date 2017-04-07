@@ -1,8 +1,7 @@
 ---
 driver:
   name: vagrant
-  synced_folders:
-    - ["c:/Installers/Java", "c:/Installers/Java"]
+    
 provisioner:
   name: chef_zero
   # You may wish to disable always updating cookbooks in CI or other testing environments.
