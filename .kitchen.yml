@@ -2,20 +2,21 @@
 driver:
   name: vagrant
   synced_folders:
-    - ["c:/Installers", "c:/Installers"]
-
+    - ["c:/Installers/Java", "c:/Installers/Java"]
 provisioner:
   name: chef_zero
   # You may wish to disable always updating cookbooks in CI or other testing environments.
   # For example:
   #   always_update_cookbooks: <%= !ENV['CI'] %>
   always_update_cookbooks: true
-  
-verifier:
-  name: inspec
 
 transport:
   name: winrm
+
+verifier:
+  name: inspec
+  format: junit
+  output: '%{platform}_%{suite}_inspec.xml'
 
 platforms:
   - name: Windows-2016
@@ -27,8 +28,11 @@ platforms:
 suites:
   - name: default
     run_list:
-      - recipe[kitchen-ci-windows::default]
+      - recipe[kitchen-ci-windows::kitchen]
     verifier:
       inspec_tests:
         - test/smoke/default
     attributes:
+      kitchen-ci-windows:
+        vagrant-box: []
+        jenkins-service: 'TermService'

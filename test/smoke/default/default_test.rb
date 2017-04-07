@@ -13,12 +13,22 @@ end
 
 script = <<-EOH
   vagrant -v
+  vagrant plugin list
 EOH
 
 describe powershell(script) do
   its('stdout') { should match 'Vagrant 1.9.2.*' }
+  its('stdout') { should match '.*vagrant-winrm.*' }
 end
 
-describe directory 'c:\\Jenkins' do
+describe directory 'c:\\jenkins' do
+  it { should exist }
+end
+
+describe windows_feature('NET-Framework-Core') do
+  it { should be_installed }
+end
+
+describe file('C:\\Windows\\System32\\PsExec.exe') do
   it { should exist }
 end

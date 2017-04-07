@@ -5,16 +5,19 @@
 # Copyright:: 2017, The Authors, All Rights Reserved.
 
 require 'spec_helper'
+recipes = ['kitchen-ci-windows::default', 'kitchen-ci-windows::java']
 
-describe 'kitchen-ci-windows::default' do
-  context 'When all attributes are default, on an unspecified platform' do
-    let(:chef_run) do
-      runner = ChefSpec::ServerRunner.new
-      runner.converge(described_recipe)
-    end
+recipes.each do |r|
+  describe r do
+    context 'Converge successfully on Windows' do
+      let(:chef_run) do
+        runner = ChefSpec::SoloRunner.new(platform: 'Windows', version: '2012R2')
+        runner.converge(described_recipe)
+      end
 
-    it 'converges successfully' do
-      expect { chef_run }.to_not raise_error
+      it 'converges successfully' do
+        expect { chef_run }.to_not raise_error
+      end
     end
   end
 end
