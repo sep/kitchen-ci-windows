@@ -24,9 +24,6 @@ server. This will need to be installed after the first Chef run. (which will fai
   because the Jenkins service is not installed)
 + The cookbook will be executed as the Local System Account.
 
-### Supported Vagrant Boxes
-
-
 ### Future Work
 + Automate installing the Jenkins Slave service
 * Install Packer to create Vagrant boxes

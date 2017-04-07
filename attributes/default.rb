@@ -6,7 +6,6 @@ default['kitchen-ci-windows']['packages']['virtualbox']['version'] = '5.1.18'
 default['kitchen-ci-windows']['packages']['googlechrome']['version'] = nil
 
 # Java
-default['java']['windows']['include'] = true
 default['java']['windows']['url'] = 'file:///c:/Installers/jdk-8u51-windows-x64.exe'
 default['java']['windows']['checksum'] = 'F01FD26E6C0936A0F928385C61046D6F97EB32C79BF1EC7C11F105BA8147BE87'
 default['java']['windows']['package_name'] = 'Java SE Development Kit 8 Update 51 (64-bit)'
