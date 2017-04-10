@@ -32,3 +32,7 @@ end
 describe file('C:\\Windows\\System32\\PsExec.exe') do
   it { should exist }
 end
+
+describe directory 'C:\\Windows\\SysWOW64\\config\\systemprofile\.chef' do
+  it { should exist }
+end

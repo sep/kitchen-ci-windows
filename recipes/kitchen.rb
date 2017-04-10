@@ -43,6 +43,10 @@ end
 
 vagrant_homex64 = "#{node['kitchen-ci-windows']['vagrant-homex64']}\\.vagrant.d"
 vagrant_homex86 = "#{node['kitchen-ci-windows']['vagrant-homex86']}\\.vagrant.d"
+chef_homex64 = "#{node['kitchen-ci-windows']['vagrant-homex64']}\\.chef"
+chef_homex86 = "#{node['kitchen-ci-windows']['vagrant-homex86']}\\.chef"
+kitchen_homex64 = "#{node['kitchen-ci-windows']['vagrant-homex64']}\\.kitchen"
+kitchen_homex86 = "#{node['kitchen-ci-windows']['vagrant-homex86']}\\.kitchen"
 
 dsc_resource 'VAGRANT_HOME' do
   resource :environment
@@ -62,6 +66,22 @@ directory vagrant_homex64 do
   action :create
 end
 
+directory chef_homex64 do
+  action :create
+end
+
+directory chef_homex86 do
+  action :create
+end
+
+directory kitchen_homex64 do
+  action :create
+end
+
+directory kitchen_homex86 do
+  action :create
+end
+
 powershell_script 'install vagrant winrm plugin' do
   code <<-EOH
     C:\\HashiCorp\\Vagrant\\bin\\vagrant plugin install vagrant-winrm
@@ -70,6 +90,14 @@ end
 
 link vagrant_homex86 do
   to vagrant_homex64
+end
+
+link chef_homex64 do
+  to chef_homex86
+end
+
+link kitchen_homex86 do
+  to kitchen_homex64
 end
 
 node['kitchen-ci-windows']['vagrant-box'].each do |key, value|
