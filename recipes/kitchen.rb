@@ -25,6 +25,11 @@ directory TMP_DIR do
   action :create
 end
 
+# Needed for the snowman-vm-vagrant build
+directory 'c:\\Shared' do
+  action :create
+end
+
 cookbook_file "#{TMP_DIR}\\microsoft-windows-netfx3-ondemand-package.cab" do
   source 'microsoft-windows-netfx3-ondemand-package.cab'
 end

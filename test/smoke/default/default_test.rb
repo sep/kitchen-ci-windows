@@ -25,6 +25,10 @@ describe directory 'c:\\jenkins' do
   it { should exist }
 end
 
+describe directory 'c:\\Shared' do
+  it { should exist }
+end
+
 describe windows_feature('NET-Framework-Core') do
   it { should be_installed }
 end

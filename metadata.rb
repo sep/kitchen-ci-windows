@@ -4,7 +4,7 @@ maintainer_email 'rmnowadly@sep.com'
 license 'Apache license 2.0'
 description 'Installs/Configures kitchen-ci-windows'
 long_description 'Installs/Configures kitchen-ci-windows'
-version '0.8.2'
+version '0.8.3'
 
 supports 'windows', '2016'
 
