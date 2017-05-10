@@ -48,6 +48,8 @@ end
 
 vagrant_homex64 = "#{node['kitchen-ci-windows']['vagrant-homex64']}\\.vagrant.d"
 vagrant_homex86 = "#{node['kitchen-ci-windows']['vagrant-homex86']}\\.vagrant.d"
+sharedx86 = "#{node['kitchen-ci-windows']['vagrant-homex86']}\\Shared"
+sharedx64 = "#{node['kitchen-ci-windows']['vagrant-homex64']}\\Shared"
 chef_homex64 = "#{node['kitchen-ci-windows']['vagrant-homex64']}\\.chef"
 chef_homex86 = "#{node['kitchen-ci-windows']['vagrant-homex86']}\\.chef"
 kitchen_homex64 = "#{node['kitchen-ci-windows']['vagrant-homex64']}\\.kitchen"
@@ -87,13 +89,21 @@ directory kitchen_homex86 do
   action :create
 end
 
+directory sharedx86 do
+  action :create
+end
+
+directory sharedx64 do
+  action :create
+end
+
 powershell_script 'install vagrant winrm plugin' do
   code <<-EOH
     C:\\HashiCorp\\Vagrant\\bin\\vagrant plugin install vagrant-winrm
   EOH
 end
 
-link vagrant_homex86 do
+link vagrant_homex86 do # ~FC005 it is not easier to do what they suggest
   to vagrant_homex64
 end
 
@@ -103,6 +113,14 @@ end
 
 link kitchen_homex86 do
   to kitchen_homex64
+end
+
+link sharedx86 do
+  to 'c:\\Shared'
+end
+
+link sharedx64 do
+  to 'c:\\Shared'
 end
 
 node['kitchen-ci-windows']['vagrant-box'].each do |key, value|
